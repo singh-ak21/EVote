@@ -63,13 +63,13 @@
             app:layout_constraintVertical_bias="0">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
+                android:id="@+id/voter_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/voter" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem"
+                android:id="@+id/commissioner_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/commissioner" />
