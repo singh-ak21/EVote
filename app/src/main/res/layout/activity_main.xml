@@ -36,10 +36,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab"
+            app:layout_constraintTop_toBottomOf="@+id/login_tab"
             app:layout_constraintVertical_bias="0"/>
 
         <TextView
+            android:id="@+id/greet_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/greet_text"
@@ -48,11 +49,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab"
+            app:layout_constraintTop_toBottomOf="@+id/login_tab"
             app:layout_constraintVertical_bias="0"/>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
+            android:id="@+id/login_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/top_round_corners"
@@ -63,13 +64,11 @@
             app:layout_constraintVertical_bias="0">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/voter_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/voter" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/commissioner_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/commissioner" />
