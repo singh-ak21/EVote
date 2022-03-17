@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/login_button.xml" value="0.2703125" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/login_edit_text.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/top_round_corners.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/activity_main.xml" value="0.1716485507246377" />
-        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/fragment_login.xml" value="0.1" />
       </map>
     </option>
   </component>
