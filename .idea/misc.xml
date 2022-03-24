@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/ic_my_details_50.xml" value="0.2703125" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/ic_my_details_background.xml" value="0.2703125" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/ic_my_details_foreground.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/login_button.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/login_edit_text.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/drawable/top_round_corners.xml" value="0.2703125" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/activity_main.xml" value="0.1716485507246377" />
         <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Programs/AndroidStudioProjects/EVote/app/src/main/res/layout/voter_menu.xml" value="0.16" />
       </map>
     </option>
   </component>
