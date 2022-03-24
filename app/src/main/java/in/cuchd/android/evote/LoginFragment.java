@@ -1,9 +1,12 @@
 package in.cuchd.android.evote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,15 @@ public class LoginFragment extends Fragment
 {
     private TabLayout mLoginTab;
     private TextView mGreeting;
+
+    private EditText mAadhaar;
+    private EditText mPassword;
+
+    private Button mLoginButton;
+
+    public LoginFragment()
+    {
+    }
 
     public static Fragment newInstance()
     {
@@ -47,6 +59,29 @@ public class LoginFragment extends Fragment
             public void onTabReselected(TabLayout.Tab tab)
             {
 
+            }
+        });
+
+        mAadhaar = view.findViewById(R.id.aadhaar_number);
+        mPassword = view.findViewById(R.id.password);
+
+        mLoginButton = view.findViewById(R.id.login_button);
+        mLoginButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                int selectedPosition = mLoginTab.getSelectedTabPosition();
+
+                if (selectedPosition == 0)
+                {
+                    if (mAadhaar.getText().toString().equals("123") &&
+                            mPassword.getText().toString().equals("voter"))
+                    {
+                        Intent intent = new Intent(getActivity(), VoterMenuActivity.class);
+                        startActivity(intent);
+                    }
+                }
             }
         });
 
