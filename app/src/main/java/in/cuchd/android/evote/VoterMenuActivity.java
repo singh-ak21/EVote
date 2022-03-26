@@ -1,15 +1,12 @@
 package in.cuchd.android.evote;
 
-import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class VoterMenuActivity extends AppCompatActivity
+public class VoterMenuActivity extends AbstractMenuActivity
 {
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected Fragment createFragment()
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.voter_menu);
+        return VoterMenuFragment.newInstance();
     }
 }
