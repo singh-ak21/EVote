@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "580024481186",
+    "project_id": "evote-e4d88",
+    "storage_bucket": "evote-e4d88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580024481186:android:c43d3c0e60603c31faaefb",
+        "android_client_info": {
+          "package_name": "in.cuchd.android.evote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580024481186-421ku620g6rbq9ggu9uni3gehopeuhpm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.cuchd.android.evote",
+            "certificate_hash": "a57cc0215a35fc07702f2f673aef54213950cc2f"
+          }
+        },
+        {
+          "client_id": "580024481186-kd01ud93r5f02d40gh7kfo5tolfjs9bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDjdYt1d9c15KRdje6EpT-90_1rOhUYeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580024481186-kd01ud93r5f02d40gh7kfo5tolfjs9bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
