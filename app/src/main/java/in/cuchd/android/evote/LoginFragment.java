@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,7 @@ public class LoginFragment extends Fragment
     private EditText mPassword;
 
     private Button mLoginButton;
-
-    public LoginFragment()
-    {
-    }
+    private LinearLayout mSignup;
 
     public static Fragment newInstance()
     {
@@ -86,6 +84,17 @@ public class LoginFragment extends Fragment
         });
 
         mGreeting = view.findViewById(R.id.greet_text_view);
+
+        mSignup = view.findViewById(R.id.sign_up);
+        mSignup.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(getActivity(), SignupActivity.class);
+                startActivity(intent);
+            }
+        });
 
         updateGreeting();
 
