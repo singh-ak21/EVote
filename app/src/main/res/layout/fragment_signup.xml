@@ -15,6 +15,7 @@
         android:textSize="18sp"/>
 
     <EditText
+        android:id="@+id/aadhaar_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -24,9 +25,11 @@
         android:background="@drawable/login_edit_text"
         android:hint="Aadhaar Number"
         android:inputType="number"
+        android:maxLength="12"
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -39,6 +42,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/date_of_birth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -51,6 +55,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -60,9 +65,11 @@
         android:background="@drawable/login_edit_text"
         android:hint="Phone"
         android:inputType="phone"
+        android:maxLength="10"
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -75,6 +82,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -87,6 +95,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:id="@+id/confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -99,6 +108,7 @@
         android:textSize="14sp" />
 
     <Button
+        android:id="@+id/continue_button"
         android:background="@drawable/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
