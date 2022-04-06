@@ -23,6 +23,7 @@
         <activity android:name=".SignupActivity"/>
         <activity android:name=".VerifyOTPActivity"/>
         <activity android:name=".CommissionerMenuActivity"/>
+        <activity android:name=".ActivityVoterList"/>
     </application>
 
 </manifest>

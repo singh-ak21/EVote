@@ -1,15 +1,27 @@
 package in.cuchd.android.evote;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Voter
 {
+    private UUID mId;
     private long mAadhaar;
     private String mName;
     private Date mDateOfBirth;
     private long mPhone;
     private String mEmail;
     private String password;
+
+    public Voter()
+    {
+        mId = UUID.randomUUID();
+    }
+
+    public UUID getId()
+    {
+        return mId;
+    }
 
     public long getAadhaar()
     {

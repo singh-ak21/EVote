@@ -1,5 +1,6 @@
 package in.cuchd.android.evote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,15 @@ public class CommissionerMenuFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_commissioner_menu, container, false);
 
         mVoterList = view.findViewById(R.id.voter_list);
+        mVoterList.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(getActivity(), ActivityVoterList.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
