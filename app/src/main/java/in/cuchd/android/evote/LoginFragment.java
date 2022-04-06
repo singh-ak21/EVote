@@ -80,6 +80,15 @@ public class LoginFragment extends Fragment
                         startActivity(intent);
                     }
                 }
+                else
+                {
+                    if (mAadhaar.getText().toString().equals("123") &&
+                            mPassword.getText().toString().equals("comm"))
+                    {
+                        Intent intent = new Intent(getActivity(), CommissionerMenuActivity.class);
+                        startActivity(intent);
+                    }
+                }
             }
         });
 
