@@ -24,6 +24,7 @@
         <activity android:name=".VerifyOTPActivity"/>
         <activity android:name=".CommissionerMenuActivity"/>
         <activity android:name=".ActivityVoterList"/>
+        <activity android:name=".VoterActivity"/>
     </application>
 
 </manifest>

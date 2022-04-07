@@ -1,6 +1,8 @@
 package in.cuchd.android.evote;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import java.util.List;
 
 public class FragmentVoterList extends Fragment
 {
+    private static final String TAG = "FragmentVoterList";
+    
     private RecyclerView mVoterRecyclerView;
     private VoterAdapter mAdapter;
 
@@ -51,7 +55,11 @@ public class FragmentVoterList extends Fragment
         @Override
         public void onClick(View view)
         {
+            Intent intent = VoterActivity.newIntent(getActivity(), mVoter.getId());
 
+            Log.d(TAG, "onClick: intent = " + intent);
+            Log.d(TAG, "onClick: mVoter.getId() = " + mVoter.getId());
+            startActivity(intent);
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class VoterCentre
 {
@@ -43,5 +44,15 @@ public class VoterCentre
         }
 
         return mVoters;
+    }
+
+    public Voter getVoter(UUID crimeID)
+    {
+        for (Voter voter : mVoters)
+        {
+            if (voter.getId().compareTo(crimeID) == 0) return voter;
+        }
+
+        return null;
     }
 }
