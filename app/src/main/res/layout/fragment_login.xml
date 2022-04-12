@@ -40,7 +40,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <EditText
-        android:id="@+id/aadhaar_number"
+        android:id="@+id/signup_aadhaar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/aadhaar_number"
@@ -58,7 +58,7 @@
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/signup_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aadhaar_number"
+        app:layout_constraintTop_toBottomOf="@+id/signup_aadhaar"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintWidth_percent="0.8"
         android:inputType="text" />
@@ -99,9 +99,9 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/signup_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_password" />
 
     <LinearLayout
         android:id="@+id/sign_up"

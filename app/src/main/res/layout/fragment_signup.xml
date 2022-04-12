@@ -15,7 +15,7 @@
         android:textSize="18sp"/>
 
     <EditText
-        android:id="@+id/aadhaar_number"
+        android:id="@+id/signup_aadhaar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -29,7 +29,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/signup_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/date_of_birth"
+        android:id="@+id/signup_date_of_birth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -55,7 +55,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/signup_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -69,7 +69,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/signup_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -82,7 +82,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/signup_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -95,7 +95,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/confirm_password"
+        android:id="@+id/signup_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

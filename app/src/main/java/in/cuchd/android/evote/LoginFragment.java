@@ -60,8 +60,8 @@ public class LoginFragment extends Fragment
             }
         });
 
-        mAadhaar = view.findViewById(R.id.aadhaar_number);
-        mPassword = view.findViewById(R.id.password);
+        mAadhaar = view.findViewById(R.id.signup_aadhaar);
+        mPassword = view.findViewById(R.id.signup_password);
 
         mLoginButton = view.findViewById(R.id.login_button);
         mLoginButton.setOnClickListener(new View.OnClickListener()

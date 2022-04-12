@@ -2,7 +2,6 @@ package in.cuchd.android.evote;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,13 @@ public class SignupFragment extends Fragment
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
+    private EditText mAadhaar;
+    private EditText mName;
+    private EditText mDateOfBirth;
     private EditText mPhone;
+    private EditText mEmail;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
 
     private Button mContinue;
 
@@ -42,7 +47,15 @@ public class SignupFragment extends Fragment
 
         mAuth = FirebaseAuth.getInstance();
 
-        mPhone = view.findViewById(R.id.phone);
+        mAadhaar = view.findViewById(R.id.signup_aadhaar);
+        mName = view.findViewById(R.id.signup_name);
+        mDateOfBirth = view.findViewById(R.id.signup_date_of_birth);
+        mPhone = view.findViewById(R.id.signup_phone);
+        mEmail = view.findViewById(R.id.signup_email);
+        mPassword = view.findViewById(R.id.signup_password);
+        mConfirmPassword = view.findViewById(R.id.signup_confirm_password);
+
+        mPhone = view.findViewById(R.id.signup_phone);
 
         mContinue = view.findViewById(R.id.continue_button);
         mContinue.setOnClickListener(new View.OnClickListener()
@@ -50,18 +63,7 @@ public class SignupFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                if (mPhone.getText().toString().trim().isEmpty())
-                {
-                    Toast.makeText(getActivity(), "Invalid Phone Number", Toast.LENGTH_SHORT).show();
-                }
-                else if (mPhone.getText().toString().trim().length() != 10)
-                {
-                    Toast.makeText(getActivity(), "Type valid Phone Number", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    otpSend();
-                }
+                if (checkInputs()) otpSend();
             }
         });
 
@@ -88,7 +90,8 @@ public class SignupFragment extends Fragment
             public void onCodeSent(@NonNull String verificationId,
                                    @NonNull PhoneAuthProvider.ForceResendingToken token)
             {
-                Toast.makeText(getActivity(), "OTP is successfully send.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),
+                        "OTP is successfully send.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), VerifyOTPActivity.class);
 
@@ -108,5 +111,85 @@ public class SignupFragment extends Fragment
                         .build();
 
         PhoneAuthProvider.verifyPhoneNumber(options);
+    }
+
+    public boolean checkInputs()
+    {
+        // aadhaar check
+        String aadhaar = mAadhaar.getText().toString();
+
+        if (aadhaar.length() != 12)
+        {
+            Toast.makeText(getActivity(),
+                    "Invalid aadhaar number. Aadhaar length should be 12.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // name check
+        String name = mName.getText().toString();
+        if (name.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Please enter your name.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // date of birth check
+        String dob = mDateOfBirth.getText().toString();
+
+        if (!dob.matches("^(?:0[1-9]|[12]\\d|3[01])([/.-])(?:0[1-9]|1[012])\\1(?:19|20)\\d\\d$"))
+        {
+            Toast.makeText(getActivity(), "Invalid date. Please ensure date is in the form dd/mm/yyyy", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        // phone check
+        String phone = mPhone.getText().toString();
+        if (phone.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Invalid Phone Number", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (phone.length() != 10)
+        {
+            Toast.makeText(getActivity(), "Type valid Phone Number", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // email check
+        String email = mEmail.getText().toString();
+        if (!email.toLowerCase().matches(
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])"))
+        {
+            Toast.makeText(getActivity(), "Invalid email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // password and confirm password check
+        String password = mPassword.getText().toString();
+        String confirmPassword = mConfirmPassword.getText().toString();
+
+        if (password.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Please enter a password.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (confirmPassword.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Please enter your password in confirm password.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (!password.equals(confirmPassword))
+        {
+            Toast.makeText(getActivity(), "Password and confirm password are not equal.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 }
