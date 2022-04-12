@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,8 +61,8 @@ public class LoginFragment extends Fragment
             }
         });
 
-        mAadhaar = view.findViewById(R.id.signup_aadhaar);
-        mPassword = view.findViewById(R.id.signup_password);
+        mAadhaar = view.findViewById(R.id.login_aadhaar);
+        mPassword = view.findViewById(R.id.login_password);
 
         mLoginButton = view.findViewById(R.id.login_button);
         mLoginButton.setOnClickListener(new View.OnClickListener()
@@ -69,11 +70,13 @@ public class LoginFragment extends Fragment
             @Override
             public void onClick(View view)
             {
+                if (!checkInput()) return;
+
                 int selectedPosition = mLoginTab.getSelectedTabPosition();
 
                 if (selectedPosition == 0)
                 {
-                    if (mAadhaar.getText().toString().equals("123") &&
+                    if (mAadhaar.getText().toString().equals("111111111111") &&
                             mPassword.getText().toString().equals("voter"))
                     {
                         Intent intent = new Intent(getActivity(), VoterMenuActivity.class);
@@ -82,7 +85,7 @@ public class LoginFragment extends Fragment
                 }
                 else
                 {
-                    if (mAadhaar.getText().toString().equals("123") &&
+                    if (mAadhaar.getText().toString().equals("111111111111") &&
                             mPassword.getText().toString().equals("comm"))
                     {
                         Intent intent = new Intent(getActivity(), CommissionerMenuActivity.class);
@@ -108,6 +111,21 @@ public class LoginFragment extends Fragment
         updateGreeting();
 
         return view;
+    }
+
+    private boolean checkInput()
+    {
+        String aadhaar = mAadhaar.getText().toString();
+
+        if (aadhaar.length() != 12)
+        {
+            Toast.makeText(getActivity(),
+                    "Invalid aadhaar number. Aadhaar length should be 12.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private void updateGreeting()
