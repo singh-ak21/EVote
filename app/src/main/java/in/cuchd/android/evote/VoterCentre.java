@@ -2,8 +2,10 @@ package in.cuchd.android.evote;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import in.cuchd.android.database.VoterCursorWrapper;
 import in.cuchd.android.database.VoterDbSchema.VoterTable;
 
 import java.util.ArrayList;
@@ -38,21 +40,31 @@ public class VoterCentre
 
     public List<Voter> getVoters()
     {
-        for (int i = 0;i < 10;i++)
+        List<Voter> voters = new ArrayList<>();
+        VoterCursorWrapper cursor = queryVoters(null, null);
+
+        try
         {
-            Voter voter = new Voter();
-
-            voter.setName("Name " + i);
-            voter.setAadhaar(1000000000000000L + i);
-            voter.setEmail("");
-            voter.setPassword("");
-            voter.setPhone(0);
-            voter.setDateOfBirth(new Date());
-
-            mVoters.add(voter);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                voters.add(cursor.getVoter());
+                cursor.moveToNext();
+            }
+        }
+        finally
+        {
+            cursor.close();
         }
 
-        return mVoters;
+        return voters;
+    }
+
+    private VoterCursorWrapper queryVoters(String whereClause, String[] whereArgs)
+    {
+        Cursor cursor = mDatabase.query(VoterTable.NAME, null, whereClause, whereArgs, null, null, null);
+
+        return new VoterCursorWrapper(cursor);
     }
 
     public Voter getVoter(UUID crimeID)
