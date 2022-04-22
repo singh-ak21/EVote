@@ -18,6 +18,12 @@ public class Voter
         mId = UUID.randomUUID();
     }
 
+    public Voter(UUID uuid)
+    {
+        mId = uuid;
+        mDateOfBirth = new Date();
+    }
+
     public UUID getId()
     {
         return mId;
