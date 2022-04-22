@@ -19,6 +19,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class SignupFragment extends Fragment
@@ -63,7 +64,10 @@ public class SignupFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                if (checkInputs()) otpSend();
+                if (checkInputs())
+                {
+                    otpSend();
+                }
             }
         });
 
@@ -90,12 +94,19 @@ public class SignupFragment extends Fragment
             public void onCodeSent(@NonNull String verificationId,
                                    @NonNull PhoneAuthProvider.ForceResendingToken token)
             {
+
+
                 Toast.makeText(getActivity(),
                         "OTP is successfully send.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), VerifyOTPActivity.class);
 
+                intent.putExtra("aadhaar_number", mAadhaar.getText().toString());
+                intent.putExtra("name", mName.getText().toString().trim());
+                intent.putExtra("date_of_birth", mDateOfBirth.getText().toString());
                 intent.putExtra("phone", mPhone.getText().toString().trim());
+                intent.putExtra("email", mEmail.getText().toString().trim());
+                intent.putExtra("password", mPassword.getText().toString());
                 intent.putExtra("verification_id", verificationId);
 
                 startActivity(intent);

@@ -22,14 +22,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Date;
+
 public class VerifyOTPFragment extends Fragment
 {
     private static final String TAG = "VERIFY_OTP_FRAGMENT";
-    
+
+    private static final String ARG_AADHAAR_NUMBER = "aadhaar_number";
+    private static final String ARG_NAME = "name";
+    private static final String ARG_DATE_OF_BIRTH = "date_of_birth";
     private static final String ARG_PHONE = "phone";
+    private static final String ARG_EMAIL = "email";
+    private static final String ARG_PASSWORD = "password";
     private static final String ARG_VERIFICATION_ID = "verification_id";
 
+    private String mAadhaarNumber;
+    private String mName;
+    private String mDateOfBirth;
     private String mPhone;
+    private String mEmail;
+    private String mPassword;
     private String mVerificationID;
 
     private TextView mPhoneText;
@@ -42,11 +54,18 @@ public class VerifyOTPFragment extends Fragment
 
     private Button mVerify;
 
-    public static Fragment newInstance(String phone, String verificationID)
+    public static Fragment newInstance(String aadhaarNumber, String name, String dateOfBirth,
+                                       String phone, String email, String password,
+                                       String verificationID)
     {
         Bundle bundle = new Bundle();
 
+        bundle.putString(ARG_AADHAAR_NUMBER, aadhaarNumber);
+        bundle.putString(ARG_NAME, name);
+        bundle.putString(ARG_DATE_OF_BIRTH, dateOfBirth);
         bundle.putString(ARG_PHONE, phone);
+        bundle.putString(ARG_EMAIL, email);
+        bundle.putString(ARG_PASSWORD, password);
         bundle.putString(ARG_VERIFICATION_ID, verificationID);
 
         VerifyOTPFragment fragment = new VerifyOTPFragment();
@@ -110,7 +129,28 @@ public class VerifyOTPFragment extends Fragment
                                     {
                                         if (task.isSuccessful())
                                         {
-                                            Toast.makeText(getActivity(), "Verification done", Toast.LENGTH_SHORT).show();
+                                            Voter voter = new Voter();
+
+                                            voter.setAadhaar(Long.parseLong(mAadhaarNumber));
+                                            voter.setName(mName);
+
+                                            String[] parts = mDateOfBirth.split("[-/.]");
+
+                                            Date date = new Date();
+                                            date.setDate(Integer.parseInt(parts[0]));
+                                            date.setMonth(Integer.parseInt(parts[1]));
+                                            date.setYear(Integer.parseInt(parts[2]));
+
+                                            voter.setDateOfBirth(date);
+
+                                            voter.setPhone(Long.parseLong(mPhone));
+                                            voter.setEmail(mEmail);
+                                            voter.setPassword(mPassword);
+
+                                            VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+                                            centre.addVoter(voter);
+
+                                            Toast.makeText(getActivity(), "Verification done. Voter added.", Toast.LENGTH_SHORT).show();
 
                                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -136,7 +176,12 @@ public class VerifyOTPFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
+        mAadhaarNumber = (String)getArguments().get(ARG_AADHAAR_NUMBER);
+        mName = (String)getArguments().get(ARG_NAME);
+        mDateOfBirth = (String)getArguments().get(ARG_DATE_OF_BIRTH);
         mPhone = (String)getArguments().get(ARG_PHONE);
+        mEmail = (String)getArguments().get(ARG_EMAIL);
+        mPassword = (String)getArguments().get(ARG_PASSWORD);
         mVerificationID = (String)getArguments().get(ARG_VERIFICATION_ID);
     }
 }
