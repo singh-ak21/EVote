@@ -67,20 +67,34 @@ public class VoterCentre
         return new VoterCursorWrapper(cursor);
     }
 
-    public Voter getVoter(UUID crimeID)
+    public Voter getVoter(UUID voterId)
     {
-        for (Voter voter : mVoters)
-        {
-            if (voter.getId().compareTo(crimeID) == 0) return voter;
-        }
+        VoterCursorWrapper cursor = queryVoters(VoterTable.Cols.UUID + " = ?", new String[]{voterId.toString()});
 
-        return null;
+        try
+        {
+            if (cursor.getCount() == 0) return null;
+
+            cursor.moveToFirst();
+            return cursor.getVoter();
+        }
+        finally
+        {
+            cursor.close();
+        }
     }
 
     public void addVoter(Voter voter)
     {
         ContentValues values = getContentValues(voter);
         mDatabase.insert(VoterTable.NAME, null, values);
+    }
+
+    public void updateCrime(Voter voter)
+    {
+        String uuidString = voter.getId().toString();
+        ContentValues values = getContentValues(voter);
+        mDatabase.update(VoterTable.NAME, values, VoterTable.Cols.UUID + " = ?", new String[] { uuidString });
     }
 
     private static ContentValues getContentValues(Voter voter)
