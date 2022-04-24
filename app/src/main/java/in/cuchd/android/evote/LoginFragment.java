@@ -76,10 +76,15 @@ public class LoginFragment extends Fragment
 
                 if (selectedPosition == 0)
                 {
-                    if (mAadhaar.getText().toString().equals("111111111111") &&
-                            mPassword.getText().toString().equals("voter"))
+                    String aadhaar = mAadhaar.getText().toString();
+                    String password = mPassword.getText().toString();
+
+                    VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+                    Voter voter = centre.getVoter(aadhaar, password);
+
+                    if (voter != null)
                     {
-                        Intent intent = new Intent(getActivity(), VoterMenuActivity.class);
+                        Intent intent = VoterMenuActivity.newIntent(getActivity(), voter.getId());
                         startActivity(intent);
                     }
                 }

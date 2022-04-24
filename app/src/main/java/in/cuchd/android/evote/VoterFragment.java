@@ -1,6 +1,7 @@
 package in.cuchd.android.evote;
 
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.text.DateFormat;
-import java.util.Locale;
 import java.util.UUID;
 
 public class VoterFragment extends Fragment
@@ -69,9 +68,7 @@ public class VoterFragment extends Fragment
         mName.setText(mVoter.getName());
 
         mDateOfBirth = view.findViewById(R.id.edit_date_of_birth);
-        java.text.DateFormat dateFormat = java.text.DateFormat
-                .getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        mDateOfBirth.setText(dateFormat.format(mVoter.getDateOfBirth()));
+        mDateOfBirth.setText(DateFormat.format("dd-MM-yyyy", mVoter.getDateOfBirth()));
 
         mPhone = view.findViewById(R.id.edit_phone);
         mPhone.setText(String.valueOf(mVoter.getPhone()));
