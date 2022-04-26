@@ -56,9 +56,6 @@ public class FragmentVoterList extends Fragment
         public void onClick(View view)
         {
             Intent intent = VoterActivity.newIntent(getActivity(), mVoter.getId());
-
-            Log.d(TAG, "onClick: intent = " + intent);
-            Log.d(TAG, "onClick: mVoter.getId() = " + mVoter.getId());
             startActivity(intent);
         }
     }
@@ -112,6 +109,13 @@ public class FragmentVoterList extends Fragment
         return view;
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI()
     {
         VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
@@ -121,6 +125,11 @@ public class FragmentVoterList extends Fragment
         {
             mAdapter = new VoterAdapter(voters);
             mVoterRecyclerView.setAdapter(mAdapter);
+        }
+        else
+        {
+            mAdapter.setVoters(voters);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }
