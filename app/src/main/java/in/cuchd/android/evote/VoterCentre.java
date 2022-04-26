@@ -115,6 +115,11 @@ public class VoterCentre
         mDatabase.update(VoterTable.NAME, values, VoterTable.Cols.UUID + " = ?", new String[] { uuidString });
     }
 
+    public void deleteVoter(Voter voter)
+    {
+        mDatabase.delete(VoterTable.NAME,VoterTable.Cols.UUID + " = ?", new String[]{voter.getId().toString()});
+    }
+
     private static ContentValues getContentValues(Voter voter)
     {
         ContentValues values = new ContentValues();

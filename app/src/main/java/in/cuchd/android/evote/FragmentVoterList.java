@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -104,6 +105,35 @@ public class FragmentVoterList extends Fragment
 
         mVoterRecyclerView = view.findViewById(R.id.voter_recycler_view);
         mVoterRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ItemTouchHelper itemTouchHelper =
+                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
+                        ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT)
+                {
+                    @Override
+                    public boolean isLongPressDragEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target)
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
+                    {
+                        VoterCentre centre = VoterCentre.getVoterCentre(getContext());
+                        Voter voter = centre.getVoters().get(viewHolder.getAdapterPosition());
+                        centre.deleteVoter(voter);
+
+                        updateUI();
+                    }
+                });
+
+        itemTouchHelper.attachToRecyclerView(mVoterRecyclerView);
 
         updateUI();
         return view;
