@@ -108,7 +108,7 @@ public class VoterCentre
         mDatabase.insert(VoterTable.NAME, null, values);
     }
 
-    public void updateCrime(Voter voter)
+    public void updateVoter(Voter voter)
     {
         String uuidString = voter.getId().toString();
         ContentValues values = getContentValues(voter);

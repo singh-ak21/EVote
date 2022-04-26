@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class VerifyOTPFragment extends Fragment
@@ -135,13 +136,14 @@ public class VerifyOTPFragment extends Fragment
                                             voter.setName(mName);
 
                                             String[] parts = mDateOfBirth.split("[-/.]");
+                                            int date = Integer.parseInt(parts[0]);
+                                            int month = Integer.parseInt(parts[1]);
+                                            int year = Integer.parseInt(parts[2]);
 
-                                            Date date = new Date();
-                                            date.setDate(Integer.parseInt(parts[0]));
-                                            date.setMonth(Integer.parseInt(parts[1]));
-                                            date.setYear(Integer.parseInt(parts[2]));
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.set(year, month, date);
 
-                                            voter.setDateOfBirth(date);
+                                            voter.setDateOfBirth(calendar.getTime());
 
                                             voter.setPhone(Long.parseLong(mPhone));
                                             voter.setEmail(mEmail);
