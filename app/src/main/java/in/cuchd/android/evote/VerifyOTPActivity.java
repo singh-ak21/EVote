@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.PhoneAuthProvider;
+
 public class VerifyOTPActivity extends AbstractMainActivity
 {
     @Override
@@ -17,8 +19,9 @@ public class VerifyOTPActivity extends AbstractMainActivity
         String email = intent.getStringExtra("email");
         String password = intent.getStringExtra("password");
         String verificationID = intent.getStringExtra("verification_id");
+        PhoneAuthProvider.ForceResendingToken token = intent.getParcelableExtra("resend_token");
 
         return VerifyOTPFragment.newInstance(
-                aadhaarNumber, name, dateOfBirth, phone, email, password, verificationID);
+                aadhaarNumber, name, dateOfBirth, phone, email, password, verificationID, token);
     }
 }

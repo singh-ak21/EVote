@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -24,11 +25,10 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class VerifyOTPFragment extends Fragment
 {
-    private static final String TAG = "VERIFY_OTP_FRAGMENT";
-
     private static final String ARG_AADHAAR_NUMBER = "aadhaar_number";
     private static final String ARG_NAME = "name";
     private static final String ARG_DATE_OF_BIRTH = "date_of_birth";
@@ -36,6 +36,9 @@ public class VerifyOTPFragment extends Fragment
     private static final String ARG_EMAIL = "email";
     private static final String ARG_PASSWORD = "password";
     private static final String ARG_VERIFICATION_ID = "verification_id";
+    private static final String ARG_RESEND_TOKEN = "resend_token";
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private String mAadhaarNumber;
     private String mName;
@@ -44,6 +47,7 @@ public class VerifyOTPFragment extends Fragment
     private String mEmail;
     private String mPassword;
     private String mVerificationID;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
 
     private TextView mPhoneText;
     private EditText mCode1;
@@ -53,11 +57,14 @@ public class VerifyOTPFragment extends Fragment
     private EditText mCode5;
     private EditText mCode6;
 
+    private TextView mResendOtp;
+
     private Button mVerify;
 
     public static Fragment newInstance(String aadhaarNumber, String name, String dateOfBirth,
                                        String phone, String email, String password,
-                                       String verificationID)
+                                       String verificationID,
+                                       PhoneAuthProvider.ForceResendingToken token)
     {
         Bundle bundle = new Bundle();
 
@@ -68,6 +75,7 @@ public class VerifyOTPFragment extends Fragment
         bundle.putString(ARG_EMAIL, email);
         bundle.putString(ARG_PASSWORD, password);
         bundle.putString(ARG_VERIFICATION_ID, verificationID);
+        bundle.putParcelable(ARG_RESEND_TOKEN, token);
 
         VerifyOTPFragment fragment = new VerifyOTPFragment();
         fragment.setArguments(bundle);
@@ -90,6 +98,50 @@ public class VerifyOTPFragment extends Fragment
         mCode4 = view.findViewById(R.id.code_4);
         mCode5 = view.findViewById(R.id.code_5);
         mCode6 = view.findViewById(R.id.code_6);
+
+        mResendOtp = view.findViewById(R.id.resend_otp);
+        mResendOtp.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks()
+                {
+                    @Override
+                    public void onVerificationCompleted(PhoneAuthCredential credential)
+                    {
+
+                    }
+
+                    @Override
+                    public void onVerificationFailed(FirebaseException fe)
+                    {
+                        Toast.makeText(getActivity(), fe.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId,
+                                           @NonNull PhoneAuthProvider.ForceResendingToken token)
+                    {
+
+
+                        Toast.makeText(getActivity(),
+                                "OTP is successfully send.", Toast.LENGTH_SHORT).show();
+
+                        mVerificationID = verificationId;
+                        mResendToken = token;
+                    }
+                };
+
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        "+91" + mPhone,        // Phone number to verify
+                        60,                 // Timeout duration
+                        TimeUnit.SECONDS,   // Unit of timeout
+                        getActivity(),               // Activity (for callback binding)
+                        mCallbacks,         // OnVerificationStateChangedCallbacks
+                        mResendToken);
+            }
+        });
 
         mVerify = view.findViewById(R.id.verify);
         mVerify.setOnClickListener(new View.OnClickListener()
@@ -185,5 +237,6 @@ public class VerifyOTPFragment extends Fragment
         mEmail = (String)getArguments().get(ARG_EMAIL);
         mPassword = (String)getArguments().get(ARG_PASSWORD);
         mVerificationID = (String)getArguments().get(ARG_VERIFICATION_ID);
+        mResendToken = (PhoneAuthProvider.ForceResendingToken)getArguments().get(ARG_RESEND_TOKEN);
     }
 }

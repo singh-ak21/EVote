@@ -137,13 +137,14 @@
                 android:text="Didn't receive the otp?"/>
 
             <TextView
+                android:id="@+id/resend_otp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:text="RESEND OTP"
+                android:textColor="@color/orange_700"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange_700"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Button

@@ -108,6 +108,7 @@ public class SignupFragment extends Fragment
                 intent.putExtra("email", mEmail.getText().toString().trim());
                 intent.putExtra("password", mPassword.getText().toString());
                 intent.putExtra("verification_id", verificationId);
+                intent.putExtra("resend_token", token);
 
                 startActivity(intent);
             }
