@@ -87,6 +87,12 @@ public class LoginFragment extends Fragment
                         Intent intent = VoterMenuActivity.newIntent(getActivity(), voter.getId());
                         startActivity(intent);
                     }
+                    else
+                    {
+                        Toast.makeText(getActivity(),
+                                "Please check your login credentials.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
@@ -95,6 +101,12 @@ public class LoginFragment extends Fragment
                     {
                         Intent intent = new Intent(getActivity(), CommissionerMenuActivity.class);
                         startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),
+                                "Please check your login credentials.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }
