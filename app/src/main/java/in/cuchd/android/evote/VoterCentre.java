@@ -84,6 +84,24 @@ public class VoterCentre
         }
     }
 
+    public Voter getVoter(String aadhaar)
+    {
+        VoterCursorWrapper cursor = queryVoters(VoterTable.Cols.AADHAAR_NUMBER + " = ?",
+                new String[]{aadhaar});
+
+        try
+        {
+            if (cursor.getCount() == 0) return null;
+
+            cursor.moveToFirst();
+            return cursor.getVoter();
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
     public Voter getVoter(String aadhaar, String password)
     {
         VoterCursorWrapper cursor = queryVoters(VoterTable.Cols.AADHAAR_NUMBER + " = ? " +

@@ -135,6 +135,20 @@ public class SignupFragment extends Fragment
             Toast.makeText(getActivity(),
                     "Invalid aadhaar number. Aadhaar length should be 12.",
                     Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+
+        VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+        Voter voter = centre.getVoter(aadhaar);
+
+        if(voter != null)
+        {
+            Toast.makeText(getActivity(),
+                    "An user is already registered with this aadhaar card. Please check your" +
+                            " aadhaar number",
+                    Toast.LENGTH_SHORT).show();
+
             return false;
         }
 
