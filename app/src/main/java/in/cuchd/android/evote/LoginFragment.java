@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                updateGreeting();
+                updateUI();
             }
 
             @Override
@@ -125,7 +125,7 @@ public class LoginFragment extends Fragment
             }
         });
 
-        updateGreeting();
+        updateUI();
 
         return view;
     }
@@ -171,17 +171,19 @@ public class LoginFragment extends Fragment
         return true;
     }
 
-    private void updateGreeting()
+    private void updateUI()
     {
         int selectedPosition = mLoginTab.getSelectedTabPosition();
 
         if (selectedPosition == 0)
         {
             mGreeting.setText(getString(R.string.greet_text, "voter"));
+            mSignup.setVisibility(View.VISIBLE);
         }
         else
         {
             mGreeting.setText(getString(R.string.greet_text, "commissioner"));
+            mSignup.setVisibility(View.GONE);
         }
     }
 }
