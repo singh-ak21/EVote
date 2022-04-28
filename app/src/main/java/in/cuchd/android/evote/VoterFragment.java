@@ -34,6 +34,8 @@ public class VoterFragment extends Fragment
     private EditText mPhone;
     private EditText mEmail;
 
+    private String initAadhaar;
+
     public static Fragment newInstance(UUID voterId)
     {
         Bundle args = new Bundle();
@@ -108,6 +110,7 @@ public class VoterFragment extends Fragment
 
         mAadhaar = view.findViewById(R.id.edit_aadhaar);
         mAadhaar.setText(String.valueOf(mVoter.getAadhaar()));
+        initAadhaar = mAadhaar.getText().toString();
 
         mName = view.findViewById(R.id.edit_name);
         mName.setText(mVoter.getName());
@@ -159,6 +162,19 @@ public class VoterFragment extends Fragment
             Toast.makeText(getActivity(),
                     "Invalid aadhaar number. Aadhaar length should be 12.",
                     Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+        Voter voter = centre.getVoter(aadhaar);
+
+        if (voter != null && !initAadhaar.equals(aadhaar))
+        {
+            Toast.makeText(getActivity(),
+                    "An voter is already registered with this aadhaar card. Please check your" +
+                            " aadhaar number",
+                    Toast.LENGTH_SHORT).show();
+
             return false;
         }
 
