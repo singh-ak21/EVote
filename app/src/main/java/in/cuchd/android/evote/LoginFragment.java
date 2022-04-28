@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment
                     else
                     {
                         Toast.makeText(getActivity(),
-                                "Please check your login credentials.",
+                                "Please check your login password.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -105,7 +105,7 @@ public class LoginFragment extends Fragment
                     else
                     {
                         Toast.makeText(getActivity(),
-                                "Please check your login credentials.",
+                                "Please check your login password.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -140,6 +140,32 @@ public class LoginFragment extends Fragment
                     "Invalid aadhaar number. Aadhaar length should be 12.",
                     Toast.LENGTH_SHORT).show();
             return false;
+        }
+
+        if (mLoginTab.getSelectedTabPosition() == 0)
+        {
+            VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+            Voter voter = centre.getVoter(aadhaar);
+
+            if (voter == null)
+            {
+                Toast.makeText(getActivity(),
+                        "No voter is registered with this aadhaar card.",
+                        Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        }
+        else
+        {
+            if (!aadhaar.equals("111111111111"))
+            {
+                Toast.makeText(getActivity(),
+                        "No commissioner is registered with this aadhaar card.",
+                        Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
         }
 
         return true;

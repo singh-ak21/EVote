@@ -145,7 +145,7 @@ public class SignupFragment extends Fragment
         if(voter != null)
         {
             Toast.makeText(getActivity(),
-                    "An user is already registered with this aadhaar card. Please check your" +
+                    "A voter is already registered with this aadhaar card. Please check your" +
                             " aadhaar number",
                     Toast.LENGTH_SHORT).show();
 
