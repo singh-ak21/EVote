@@ -25,6 +25,8 @@
         <activity android:name=".CommissionerMenuActivity"/>
         <activity android:name=".ActivityVoterList"/>
         <activity android:name=".VoterActivity"/>
+        <activity android:name=".VerifyOtp2Activity"/>
+        <activity android:name=".NewPasswordActivity"/>
     </application>
 
 </manifest>

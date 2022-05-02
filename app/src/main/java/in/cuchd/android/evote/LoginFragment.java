@@ -21,6 +21,7 @@ public class LoginFragment extends Fragment
 {
     private TabLayout mLoginTab;
     private TextView mGreeting;
+    private TextView mForgottenPassword;
 
     private EditText mAadhaar;
     private EditText mPassword;
@@ -125,6 +126,24 @@ public class LoginFragment extends Fragment
             }
         });
 
+        mForgottenPassword = view.findViewById(R.id.forgotten_password);
+        mForgottenPassword.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (checkInput())
+                {
+                    Voter voter = VoterCentre.getVoterCentre(getActivity())
+                            .getVoter(mAadhaar.getText().toString());
+
+                    Intent intent = VerifyOtp2Activity
+                            .newIntent(getActivity(), voter.getId(), String.valueOf(voter.getPhone()));
+                    startActivity(intent);
+                }
+            }
+        });
+
         updateUI();
 
         return view;
@@ -179,11 +198,13 @@ public class LoginFragment extends Fragment
         {
             mGreeting.setText(getString(R.string.greet_text, "voter"));
             mSignup.setVisibility(View.VISIBLE);
+            mForgottenPassword.setVisibility(View.VISIBLE);
         }
         else
         {
             mGreeting.setText(getString(R.string.greet_text, "commissioner"));
             mSignup.setVisibility(View.GONE);
+            mForgottenPassword.setVisibility(View.GONE);
         }
     }
 }
