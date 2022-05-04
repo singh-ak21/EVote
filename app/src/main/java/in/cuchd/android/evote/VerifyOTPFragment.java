@@ -2,6 +2,8 @@ package in.cuchd.android.evote;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,10 +95,115 @@ public class VerifyOTPFragment extends Fragment
         mPhoneText.setText(mPhone);
 
         mCode1 = view.findViewById(R.id.code_1);
+        mCode1.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2)
+            {
+                if (!s.toString().isEmpty()) mCode2.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         mCode2 = view.findViewById(R.id.code_2);
+        mCode2.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2)
+            {
+                if (!s.toString().isEmpty()) mCode3.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         mCode3 = view.findViewById(R.id.code_3);
+        mCode3.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2)
+            {
+                if (!s.toString().isEmpty()) mCode4.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         mCode4 = view.findViewById(R.id.code_4);
+        mCode4.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2)
+            {
+                if (!s.toString().isEmpty()) mCode5.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         mCode5 = view.findViewById(R.id.code_5);
+        mCode5.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2)
+            {
+                if (!s.toString().isEmpty()) mCode6.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         mCode6 = view.findViewById(R.id.code_6);
 
         mResendOtp = view.findViewById(R.id.resend_otp);
