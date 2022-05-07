@@ -25,6 +25,7 @@ public class VoterCursorWrapper extends CursorWrapper
         long phone = getLong(getColumnIndex(VoterTable.Cols.PHONE));
         String email = getString(getColumnIndex(VoterTable.Cols.EMAIL));
         String password = getString(getColumnIndex(VoterTable.Cols.PASSWORD));
+        int partyId = getInt(getColumnIndex(VoterTable.Cols.PARTY_ID));
 
         Voter voter = new Voter(UUID.fromString(uuidString));
 
@@ -34,6 +35,7 @@ public class VoterCursorWrapper extends CursorWrapper
         voter.setPhone(phone);
         voter.setEmail(email);
         voter.setPassword(password);
+        voter.setPartyId(partyId);
 
         return voter;
     }

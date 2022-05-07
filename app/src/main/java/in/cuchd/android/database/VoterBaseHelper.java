@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import in.cuchd.android.database.VoterDbSchema.VoterTable;
+import in.cuchd.android.database.PartyDbSchema.PartyTable;
 
 public class VoterBaseHelper extends SQLiteOpenHelper
 {
@@ -26,7 +27,10 @@ public class VoterBaseHelper extends SQLiteOpenHelper
                 VoterTable.Cols.DATE_OF_BIRTH + " INTEGER NOT NULL, " +
                 VoterTable.Cols.PHONE + " INTEGER NOT NULL, " +
                 VoterTable.Cols.EMAIL + " TEXT NOT NULL, " +
-                VoterTable.Cols.PASSWORD + " TEXT NOT NULL" +
+                VoterTable.Cols.PASSWORD + " TEXT NOT NULL," +
+                VoterTable.Cols.PARTY_ID + " INTEGER, " +
+                "FOREIGN KEY (" + VoterTable.Cols.PARTY_ID + ") REFERENCES " +
+                PartyTable.NAME + "(" + PartyTable.Cols.ID + ")" +
                 ")");
     }
 

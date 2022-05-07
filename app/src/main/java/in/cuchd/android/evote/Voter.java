@@ -12,6 +12,7 @@ public class Voter
     private long mPhone;
     private String mEmail;
     private String password;
+    private int mPartyId;
 
     public Voter()
     {
@@ -87,5 +88,15 @@ public class Voter
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public int getPartyId()
+    {
+        return mPartyId;
+    }
+
+    public void setPartyId(int partyId)
+    {
+        mPartyId = partyId;
     }
 }

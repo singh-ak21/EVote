@@ -146,6 +146,8 @@ public class LoginFragment extends Fragment
 
         updateUI();
 
+
+
         return view;
     }
 

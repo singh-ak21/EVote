@@ -15,6 +15,7 @@ public class VoterDbSchema
             public static final String PHONE = "phone";
             public static final String EMAIL = "email";
             public static final String PASSWORD = "password";
+            public static final String PARTY_ID = "party_id";
         }
     }
 }

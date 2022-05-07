@@ -2,11 +2,9 @@ package in.cuchd.android.evote;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +15,11 @@ import java.util.UUID;
 
 public class VoterMenuFragment extends Fragment
 {
-    private static final String TAG = "VoterMenuFragment";
-
     private static final String ARG_VOTER_ID = "voter_id";
 
     private CardView mMyDetailsCard;
+    private CardView mVote;
+
     private Voter mVoter;
 
     public static Fragment newInstance(UUID voterId)
@@ -45,9 +43,18 @@ public class VoterMenuFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                Log.d(TAG, "onClick: mVoter.getName() = " + mVoter.getName());
                 Intent intent = DetailsActivity.newIntent(getActivity(), mVoter.getId());
-                Log.d(TAG, "onClick: intent = " + intent);
+                startActivity(intent);
+            }
+        });
+
+        mVote = view.findViewById(R.id.vote);
+        mVote.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = VoteMenuActivity.newIntent(getActivity());
                 startActivity(intent);
             }
         });

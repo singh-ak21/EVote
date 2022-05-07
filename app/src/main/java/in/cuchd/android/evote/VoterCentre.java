@@ -4,12 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import in.cuchd.android.database.PartyBaseHelper;
+import in.cuchd.android.database.PartyCursorWrapper;
+import in.cuchd.android.database.PartyDbSchema;
 import in.cuchd.android.database.VoterCursorWrapper;
 import in.cuchd.android.database.VoterDbSchema.VoterTable;
+import in.cuchd.android.database.PartyDbSchema.PartyTable;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,10 +21,13 @@ import in.cuchd.android.database.VoterBaseHelper;
 
 public class VoterCentre
 {
+    private static final String TAG = "VoterCentre";
+
     private static VoterCentre sVoterCentre;
 
     private Context mContext;
-    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase mVoterDatabase;
+    private SQLiteDatabase mPartyDatabase;
 
     private List<Voter> mVoters;
 
@@ -33,8 +40,9 @@ public class VoterCentre
     private VoterCentre(Context context)
     {
         mContext = context.getApplicationContext();
-        mDatabase = new VoterBaseHelper(mContext).getWritableDatabase();
 
+        mPartyDatabase = new PartyBaseHelper(mContext).getWritableDatabase();
+        mVoterDatabase = new VoterBaseHelper(mContext).getWritableDatabase();
         mVoters = new ArrayList<>();
     }
 
@@ -60,9 +68,15 @@ public class VoterCentre
         return voters;
     }
 
+    private PartyCursorWrapper queryParties(String whereClause, String[] whereArgs)
+    {
+        Cursor cursor = mPartyDatabase.query(PartyTable.NAME, null, whereClause, whereArgs, null, null, null);
+        return new PartyCursorWrapper(cursor);
+    }
+
     private VoterCursorWrapper queryVoters(String whereClause, String[] whereArgs)
     {
-        Cursor cursor = mDatabase.query(VoterTable.NAME, null, whereClause, whereArgs, null, null, null);
+        Cursor cursor = mVoterDatabase.query(VoterTable.NAME, null, whereClause, whereArgs, null, null, null);
 
         return new VoterCursorWrapper(cursor);
     }
@@ -123,19 +137,19 @@ public class VoterCentre
     public void addVoter(Voter voter)
     {
         ContentValues values = getContentValues(voter);
-        mDatabase.insert(VoterTable.NAME, null, values);
+        mVoterDatabase.insert(VoterTable.NAME, null, values);
     }
 
     public void updateVoter(Voter voter)
     {
         String uuidString = voter.getId().toString();
         ContentValues values = getContentValues(voter);
-        mDatabase.update(VoterTable.NAME, values, VoterTable.Cols.UUID + " = ?", new String[] { uuidString });
+        mVoterDatabase.update(VoterTable.NAME, values, VoterTable.Cols.UUID + " = ?", new String[] { uuidString });
     }
 
     public void deleteVoter(Voter voter)
     {
-        mDatabase.delete(VoterTable.NAME,VoterTable.Cols.UUID + " = ?", new String[]{voter.getId().toString()});
+        mVoterDatabase.delete(VoterTable.NAME,VoterTable.Cols.UUID + " = ?", new String[]{voter.getId().toString()});
     }
 
     private static ContentValues getContentValues(Voter voter)
