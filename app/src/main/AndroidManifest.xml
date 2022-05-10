@@ -28,6 +28,8 @@
         <activity android:name=".VerifyOtp2Activity"/>
         <activity android:name=".NewPasswordActivity"/>
         <activity android:name=".VoteMenuActivity"/>
+        <activity android:name=".VoteCountActivity"/>
+
     </application>
 
 </manifest>

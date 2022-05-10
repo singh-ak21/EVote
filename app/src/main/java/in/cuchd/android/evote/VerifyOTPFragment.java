@@ -307,7 +307,7 @@ public class VerifyOTPFragment extends Fragment
                                             voter.setPhone(Long.parseLong(mPhone));
                                             voter.setEmail(mEmail);
                                             voter.setPassword(mPassword);
-                                            voter.setPartyId(-1);
+                                            voter.setPartyId(0);
 
                                             VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
                                             centre.addVoter(voter);

@@ -74,7 +74,7 @@ public class VoterCentre
         return new PartyCursorWrapper(cursor);
     }
 
-    private Party getParty(String partyId)
+    public Party getParty(String partyId)
     {
         PartyCursorWrapper cursor =
                 queryParties(PartyTable.Cols.ID + " = ?", new String[]{partyId});
@@ -206,11 +206,20 @@ public class VoterCentre
         return values;
     }
 
-    public void updateVotes(String partyId)
+    public void incrementVote(String partyId)
     {
         Party party = getParty(partyId);
 
         party.setVoteCount(party.getVoteCount()+1);
+
+        updateParty(party);
+    }
+
+    public void decrementVote(String partyId)
+    {
+        Party party = getParty(partyId);
+
+        party.setVoteCount(party.getVoteCount()-1);
 
         updateParty(party);
     }

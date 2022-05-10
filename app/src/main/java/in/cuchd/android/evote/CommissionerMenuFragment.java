@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 public class CommissionerMenuFragment extends Fragment
 {
     private CardView mVoterList;
+    private CardView mVoteCount;
 
     public static Fragment newInstance()
     {
@@ -33,6 +34,17 @@ public class CommissionerMenuFragment extends Fragment
             public void onClick(View view)
             {
                 Intent intent = new Intent(getActivity(), ActivityVoterList.class);
+                startActivity(intent);
+            }
+        });
+
+        mVoteCount = view.findViewById(R.id.vote_count);
+        mVoteCount.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = VoteCountActivity.newIntent(getActivity());
                 startActivity(intent);
             }
         });

@@ -126,7 +126,10 @@ public class FragmentVoterList extends Fragment
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
                     {
                         VoterCentre centre = VoterCentre.getVoterCentre(getContext());
+
                         Voter voter = centre.getVoters().get(viewHolder.getAdapterPosition());
+
+                        centre.decrementVote(String.valueOf(voter.getPartyId()));
                         centre.deleteVoter(voter);
 
                         updateUI();

@@ -69,7 +69,7 @@ public class VoteMenuFragment extends Fragment
                                 mVoter.setPartyId(1);
 
                                 centre.updateVoter(mVoter);
-                                centre.updateVotes("1");
+                                centre.incrementVote("1");
 
                                 updateUI();
                             }
@@ -111,7 +111,7 @@ public class VoteMenuFragment extends Fragment
                                 mVoter.setPartyId(2);
 
                                 centre.updateVoter(mVoter);
-                                centre.updateVotes("2");
+                                centre.incrementVote("2");
 
                                 updateUI();
                             }
@@ -153,7 +153,7 @@ public class VoteMenuFragment extends Fragment
                                 mVoter.setPartyId(3);
 
                                 centre.updateVoter(mVoter);
-                                centre.updateVotes("3");
+                                centre.incrementVote("3");
 
                                 updateUI();
                             }
@@ -195,7 +195,7 @@ public class VoteMenuFragment extends Fragment
                                 mVoter.setPartyId(4);
 
                                 centre.updateVoter(mVoter);
-                                centre.updateVotes("4");
+                                centre.incrementVote("4");
 
                                 updateUI();
                             }
