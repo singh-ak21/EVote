@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class VoterMenuActivity extends AbstractMenuActivity
 {
-    private final static String EXTRA_VOTER_ID = "in.cuchd.android.evote.crime_id";
+    private final static String EXTRA_VOTER_ID = "in.cuchd.android.evote.voter_id";
 
     public static Intent newIntent(Context packageContext, UUID voterId)
     {

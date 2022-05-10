@@ -11,4 +11,5 @@
     <string name="vote">Vote</string>
     <string name="voter_list">Voter list</string>
     <string name="vote_count">Vote count</string>
+    <string name="ok">\"OK\"</string>
 </resources>

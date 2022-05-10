@@ -74,6 +74,33 @@ public class VoterCentre
         return new PartyCursorWrapper(cursor);
     }
 
+    private Party getParty(String partyId)
+    {
+        PartyCursorWrapper cursor =
+                queryParties(PartyTable.Cols.ID + " = ?", new String[]{partyId});
+
+        try
+        {
+            if (cursor.getCount() == 0) return null;
+
+            cursor.moveToFirst();
+            return cursor.getParty();
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
+    private void updateParty(Party party)
+    {
+        String id = String.valueOf(party.getId());
+        ContentValues values = getContentValues(party);
+
+        mPartyDatabase.update(PartyTable.NAME, values, PartyTable.Cols.ID + " = ?",
+                new String[] {id});
+    }
+
     private VoterCursorWrapper queryVoters(String whereClause, String[] whereArgs)
     {
         Cursor cursor = mVoterDatabase.query(VoterTable.NAME, null, whereClause, whereArgs, null, null, null);
@@ -163,7 +190,28 @@ public class VoterCentre
         values.put(VoterTable.Cols.PHONE, voter.getPhone());
         values.put(VoterTable.Cols.EMAIL, voter.getEmail());
         values.put(VoterTable.Cols.PASSWORD, voter.getPassword());
+        values.put(VoterTable.Cols.PARTY_ID, voter.getPartyId());
 
         return values;
+    }
+
+    private static ContentValues getContentValues(Party party)
+    {
+        ContentValues values = new ContentValues();
+
+        values.put(PartyTable.Cols.ID, String.valueOf(party.getId()));
+        values.put(PartyTable.Cols.NAME, party.getName());
+        values.put(PartyTable.Cols.VOTE_COUNT, party.getVoteCount());
+
+        return values;
+    }
+
+    public void updateVotes(String partyId)
+    {
+        Party party = getParty(partyId);
+
+        party.setVoteCount(party.getVoteCount()+1);
+
+        updateParty(party);
     }
 }

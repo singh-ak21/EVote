@@ -6,17 +6,24 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import java.util.UUID;
+
 public class VoteMenuActivity extends AbstractMenuActivity
 {
-    public static Intent newIntent(Context packageContext)
+    private final static String EXTRA_VOTER_ID = "in.cuchd.android.evote.voter_id";
+
+    public static Intent newIntent(Context packageContext, UUID voterId)
     {
         Intent intent = new Intent(packageContext, VoteMenuActivity.class);
+        intent.putExtra(EXTRA_VOTER_ID, voterId);
+
         return intent;
     }
 
     @Override
     protected Fragment createFragment()
     {
-        return VoteMenuFragment.newInstance();
+        UUID voterId = (UUID)getIntent().getSerializableExtra(EXTRA_VOTER_ID);
+        return VoteMenuFragment.newInstance(voterId);
     }
 }

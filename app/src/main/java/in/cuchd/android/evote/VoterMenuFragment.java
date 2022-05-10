@@ -54,7 +54,7 @@ public class VoterMenuFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                Intent intent = VoteMenuActivity.newIntent(getActivity());
+                Intent intent = VoteMenuActivity.newIntent(getActivity(), mVoter.getId());
                 startActivity(intent);
             }
         });
