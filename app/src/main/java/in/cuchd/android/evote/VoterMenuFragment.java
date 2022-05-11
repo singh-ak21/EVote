@@ -19,6 +19,7 @@ public class VoterMenuFragment extends Fragment
 
     private CardView mMyDetailsCard;
     private CardView mVote;
+    private CardView mCheckResult;
 
     private Voter mVoter;
 
@@ -59,7 +60,35 @@ public class VoterMenuFragment extends Fragment
             }
         });
 
+        mCheckResult = view.findViewById(R.id.check_result);
+        mCheckResult.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = CheckResultActivity.newIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+
+        updateUI();
         return view;
+    }
+
+    private void updateUI()
+    {
+        VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+
+        if (centre.isResultDeclared())
+        {
+            mVote.setEnabled(false);
+            mCheckResult.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mVote.setEnabled(true);
+            mCheckResult.setVisibility(View.GONE);
+        }
     }
 
     @Override

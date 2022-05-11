@@ -29,6 +29,7 @@
         <activity android:name=".NewPasswordActivity"/>
         <activity android:name=".VoteMenuActivity"/>
         <activity android:name=".VoteCountActivity"/>
+        <activity android:name=".CheckResultActivity"/>
 
     </application>
 

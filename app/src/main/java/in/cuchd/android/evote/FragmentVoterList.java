@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -127,6 +128,16 @@ public class FragmentVoterList extends Fragment
                     {
                         VoterCentre centre = VoterCentre.getVoterCentre(getContext());
 
+                        if (centre.isResultDeclared())
+                        {
+                            mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+
+                            Toast.makeText(getActivity(),
+                                    "Voter cannot be removed once result has been declared", Toast.LENGTH_SHORT)
+                                    .show();
+                            return;
+                        }
+
                         Voter voter = centre.getVoters().get(viewHolder.getAdapterPosition());
 
                         centre.decrementVote(String.valueOf(voter.getPartyId()));
@@ -163,6 +174,7 @@ public class FragmentVoterList extends Fragment
         {
             mAdapter.setVoters(voters);
             mAdapter.notifyDataSetChanged();
+
         }
     }
 }

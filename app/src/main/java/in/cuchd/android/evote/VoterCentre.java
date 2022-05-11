@@ -4,20 +4,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import in.cuchd.android.database.PartyBaseHelper;
-import in.cuchd.android.database.PartyCursorWrapper;
-import in.cuchd.android.database.PartyDbSchema;
-import in.cuchd.android.database.VoterCursorWrapper;
-import in.cuchd.android.database.VoterDbSchema.VoterTable;
-import in.cuchd.android.database.PartyDbSchema.PartyTable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import in.cuchd.android.database.PartyBaseHelper;
+import in.cuchd.android.database.PartyCursorWrapper;
+import in.cuchd.android.database.PartyDbSchema.PartyTable;
+import in.cuchd.android.database.VoteResultBaseHelper;
+import in.cuchd.android.database.VoteResultCursorWrapper;
+import in.cuchd.android.database.VoteResultDbSchema.VoteResultTable;
 import in.cuchd.android.database.VoterBaseHelper;
+import in.cuchd.android.database.VoterCursorWrapper;
+import in.cuchd.android.database.VoterDbSchema.VoterTable;
 
 public class VoterCentre
 {
@@ -28,6 +28,7 @@ public class VoterCentre
     private Context mContext;
     private SQLiteDatabase mVoterDatabase;
     private SQLiteDatabase mPartyDatabase;
+    private SQLiteDatabase mVoteResultDatabase;
 
     private List<Voter> mVoters;
 
@@ -43,6 +44,8 @@ public class VoterCentre
 
         mPartyDatabase = new PartyBaseHelper(mContext).getWritableDatabase();
         mVoterDatabase = new VoterBaseHelper(mContext).getWritableDatabase();
+        mVoteResultDatabase = new VoteResultBaseHelper(mContext).getWritableDatabase();
+
         mVoters = new ArrayList<>();
     }
 
@@ -217,10 +220,84 @@ public class VoterCentre
 
     public void decrementVote(String partyId)
     {
+        if (partyId.equals("0")) return;
         Party party = getParty(partyId);
 
         party.setVoteCount(party.getVoteCount()-1);
 
         updateParty(party);
+    }
+
+    public boolean isResultDeclared()
+    {
+        VoteResultCursorWrapper cursor = new VoteResultCursorWrapper(mVoteResultDatabase.query(VoteResultTable.NAME,
+                null, null,
+                null, null, null, null));
+
+        try
+        {
+            if (cursor.getCount() == 0) return false;
+
+            cursor.moveToFirst();
+            return cursor.getResult() == 1;
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
+    public Party getWinningParty()
+    {
+        Cursor cursor = mPartyDatabase.rawQuery(
+                "SELECT MAX(" + PartyTable.Cols.VOTE_COUNT + ") FROM " + PartyTable.NAME,
+                null);
+
+        int maxVotes;
+
+        try
+        {
+            if (cursor.getCount() != 1) return null;
+
+            cursor.moveToFirst();
+            maxVotes = cursor.getInt(0);
+        }
+        finally
+        {
+            cursor.close();
+        }
+
+        PartyCursorWrapper partyCursor = new PartyCursorWrapper(mPartyDatabase
+                .query(PartyTable.NAME, null,
+                        PartyTable.Cols.VOTE_COUNT + " = ? ",
+                        new String[]{String.valueOf(maxVotes)},
+                        null, null, null));
+
+        try
+        {
+            if (partyCursor.getCount() != 1) return null;
+
+            partyCursor.moveToFirst();
+            return partyCursor.getParty();
+        }
+        finally
+        {
+            partyCursor.close();
+        }
+    }
+
+    public boolean setResultDeclared(boolean isResultDeclared)
+    {
+        int result = isResultDeclared ? 1 : 0;
+
+        Party party = getWinningParty();
+        if (party == null) return false;
+
+        ContentValues values = new ContentValues();
+        values.put(VoteResultTable.Cols.IS_RESULT_DECLARED, String.valueOf(result));
+
+        mVoteResultDatabase.update(VoteResultTable.NAME, values, null, null);
+
+        return true;
     }
 }
