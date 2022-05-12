@@ -103,7 +103,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:background="@drawable/ic_my_details_foreground"
+                android:background="@drawable/ic_check_result"
                 android:layout_width="80dp"
                 android:layout_height="80dp"/>
 
