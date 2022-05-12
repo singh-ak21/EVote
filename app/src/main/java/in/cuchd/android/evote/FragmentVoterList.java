@@ -106,48 +106,7 @@ public class FragmentVoterList extends Fragment
 
         mVoterRecyclerView = view.findViewById(R.id.voter_recycler_view);
         mVoterRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ItemTouchHelper itemTouchHelper =
-                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
-                        ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT)
-                {
-                    @Override
-                    public boolean isLongPressDragEnabled()
-                    {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target)
-                    {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-                    {
-                        VoterCentre centre = VoterCentre.getVoterCentre(getContext());
-
-                        if (centre.isResultDeclared())
-                        {
-                            mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-
-                            Toast.makeText(getActivity(),
-                                    "Voter cannot be removed once result has been declared", Toast.LENGTH_SHORT)
-                                    .show();
-                            return;
-                        }
-
-                        Voter voter = centre.getVoters().get(viewHolder.getAdapterPosition());
-
-                        centre.decrementVote(String.valueOf(voter.getPartyId()));
-                        centre.deleteVoter(voter);
-
-                        updateUI();
-                    }
-                });
-
-        itemTouchHelper.attachToRecyclerView(mVoterRecyclerView);
+        
 
         updateUI();
         return view;
