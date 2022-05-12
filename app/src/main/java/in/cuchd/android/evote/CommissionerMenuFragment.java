@@ -20,6 +20,7 @@ public class CommissionerMenuFragment extends Fragment
     private CardView mVoterList;
     private CardView mVoteCount;
     private CardView mResult;
+    private CardView mResetVote;
 
     public static Fragment newInstance()
     {
@@ -80,6 +81,20 @@ public class CommissionerMenuFragment extends Fragment
                 {
                     Log.e(TAG, "onClick: ", e);
                 }
+            }
+        });
+
+        mResetVote = view.findViewById(R.id.reset_votes);
+        mResetVote.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                VoterCentre centre = VoterCentre.getVoterCentre(getActivity());
+                boolean voteReset = centre.resetVotes();
+
+                if (voteReset) Toast.makeText(getActivity(), "Votes have been reset", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getActivity(), "Votes cannot reset", Toast.LENGTH_SHORT).show();
             }
         });
 

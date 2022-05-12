@@ -291,12 +291,28 @@ public class VoterCentre
         int result = isResultDeclared ? 1 : 0;
 
         Party party = getWinningParty();
-        if (party == null) return false;
+        if (result == 1 && party == null) return false;
 
         ContentValues values = new ContentValues();
         values.put(VoteResultTable.Cols.IS_RESULT_DECLARED, String.valueOf(result));
 
         mVoteResultDatabase.update(VoteResultTable.NAME, values, null, null);
+
+        return true;
+    }
+
+    public boolean resetVotes()
+    {
+        if (!isResultDeclared()) return false;
+
+        // reset all the party votes associated with the voters
+        mVoterDatabase.execSQL("UPDATE " + VoterTable.NAME + " SET " + VoterTable.Cols.PARTY_ID + " = 0");
+
+        // reset party database
+        mPartyDatabase.execSQL("UPDATE " + PartyTable.NAME + " SET " + PartyTable.Cols.VOTE_COUNT + " = 0");
+
+        // set result declared false
+        setResultDeclared(false);
 
         return true;
     }
